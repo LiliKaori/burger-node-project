@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   dialect: 'postgres',
   host: 'localhost',
   username: 'postgres',
@@ -10,3 +10,7 @@ module.exports = {
     underscoredAll: true,
   },
 }
+
+export default config
+
+
