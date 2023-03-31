@@ -1,7 +1,9 @@
 import express, { json } from 'express'
 import routes from './routes.js'
 import './database/index.js'
+import { resolve, dirname } from 'path'
 
+const __dirname = resolve(dirname(''))
 class App {
   constructor() {
     this.app = express()
@@ -12,6 +14,7 @@ class App {
 
   middlewares() {
     this.app.use(json())
+    this.app.use('/product-file', express.static(resolve(__dirname, 'uploads')))
   }
 
   routes() {
