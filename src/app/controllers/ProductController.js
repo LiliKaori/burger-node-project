@@ -1,12 +1,13 @@
 import * as Yup from 'yup'
 import Product from '../models/Product.js'
+import Category from '../models/Category.js'
 
 class ProductController {
   async store(request, response) {
     const Schema = Yup.object().shape({
       name: Yup.string().required(),
       price: Yup.string().required(),
-      category: Yup.string().required(),
+      category_id: Yup.number().required(),
     })
 
     try {
@@ -16,21 +17,28 @@ class ProductController {
     }
 
     const { filename: path } = request.file
-    const { name, price, category } = request.body
+    const { name, price, category_id } = request.body
 
     const product = await Product.create({
       name,
       price,
-      category,
+      category_id,
       path,
     })
     return response.json(product)
   }
 
   async index(request, response) {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+      ],
+    })
 
-    console.log(request.userId)
     return response.json(products)
   }
 }
