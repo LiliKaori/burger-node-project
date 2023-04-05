@@ -6,6 +6,7 @@ import UserController from './app/controllers/UserController.js'
 import SessionController from './app/controllers/SessionController.js'
 import ProductController from './app/controllers/ProductController.js'
 import CategoryController from './app/controllers/CategoryController.js'
+import OrderController from './app/controllers/OrderController.js'
 
 import authMiddleware from './app/middlewares/auth.js'
 
@@ -24,5 +25,9 @@ routes.get('/products', ProductController.index)
 
 routes.post('/categories', CategoryController.store)
 routes.get('/categories', CategoryController.index)
+
+routes.post('/orders', OrderController.store)
+routes.get('/orders', OrderController.index)
+routes.put('/orders/:id', OrderController.update)
 
 export default routes
